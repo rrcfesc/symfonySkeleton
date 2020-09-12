@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  web:
+    build: .
+    ports:
+      - "8015:80"
+#    depends_on:
+#      - database
+    volumes:
+      - ./:/var/www/html
+    container_name: ${PROJECT_NAME}_web
+#  database:
+#    image: mysql:5.7
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: ${DB_NAME}
+#    volumes:
+#      - ./database:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#    container_name: ${PROJECT_NAME}_db
