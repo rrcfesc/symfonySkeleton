@@ -1,0 +1,1 @@
+# Skeleton Projecto with Symfony 5.1.X
