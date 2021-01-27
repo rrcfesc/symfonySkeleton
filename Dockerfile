@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends locales curl wget apt-utils tcl build-essential gnupg2 gnupg -y
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh && chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh && chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
 RUN set -x; \
     locale-gen en_US.UTF-8 && \
     update-locale && \
@@ -30,7 +30,7 @@ RUN apt-get install libmcrypt-dev libmagickwand-dev librabbitmq-dev \
     libxslt-dev \
     libxpm-dev \
     pkg-config sshpass nodejs yarn  -y
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1
 RUN docker-php-ext-install -j$(nproc) zip
 RUN docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-configure hash --with-mhash
@@ -49,6 +49,7 @@ RUN pecl install xdebug-2.9.1 \
     && echo "xdebug.remote_enable = on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_autostart = on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_connect_back = off" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.profiler_enable_trigger = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.remote_handler = dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.profiler_output_dir = '/var/www/html'" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.collect_params = 4" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
@@ -61,4 +62,4 @@ RUN pecl install xdebug-2.9.1 \
 
 COPY docker/apache/apache.conf /etc/apache2/sites-available/000-default.conf
 
-EXPOSE 80
+EXPOSE 80 443

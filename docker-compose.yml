@@ -4,18 +4,18 @@ services:
     build: .
     ports:
       - "8015:80"
-#    depends_on:
-#      - database
+    depends_on:
+      - database
     volumes:
       - ./:/var/www/html
-    container_name: ${PROJECT_NAME}_web
-#  database:
-#    image: mysql:5.7
-#    environment:
-#      MYSQL_ROOT_PASSWORD: root
-#      MYSQL_DATABASE: ${DB_NAME}
-#    volumes:
-#      - ./database:/var/lib/mysql
-#    ports:
-#      - "3306:3306"
-#    container_name: ${PROJECT_NAME}_db
+    container_name: virtual_meeting_web
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: virtual_meeting
+    volumes:
+      - ./database:/var/lib/mysql
+    ports:
+      - "3315:3306"
+    container_name: virtual_meeting_db
