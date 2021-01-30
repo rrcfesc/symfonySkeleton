@@ -41,7 +41,6 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $exhibitor->setRoles(['ROLE_EXHIBITOR']);
         $manager->persist($exhibitor);
 
-
         $manager->flush();
     }
 

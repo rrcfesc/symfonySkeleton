@@ -1,0 +1,12 @@
+@import "~bootstrap";
+// Core variables and mixins
+@import "variables.scss";
+@import "~startbootstrap-one-page-wonder/scss/mixins.scss";
+// Global CSS
+@import "~startbootstrap-one-page-wonder/scss/global.scss";
+// Components
+@import "~startbootstrap-one-page-wonder/scss/navbar.scss";
+@import "~startbootstrap-one-page-wonder/scss/masthead.scss";
+@import "~startbootstrap-one-page-wonder/scss/bootstrap-overrides.scss";
+
+@import "~startbootstrap-one-page-wonder/css/one-page-wonder.min.css";
