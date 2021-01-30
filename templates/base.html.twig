@@ -12,12 +12,25 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-
+        {% if '' != analytics %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ analytics }}"></script>
+        <script>
+            let analitycs = "{{ analytics }}";
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', analitycs);
+        </script>
+        {% endif %}
     </head>
     <body>
         <div id="app">
-            {% block body %}{% endblock %}
+            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="background-color: {{ domainConfig.header.backgroundColor }} !important;">
+                <a class="navbar-brand" href="{% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}{{ path('welcome_index') }}{% else %}{{ path('dashboard_index') }}{% endif %}">
+                    <img src="{{ domainConfig.header.logo }}" alt="{{ domainConfig.header.websiteName }}" style="width: {{ domainConfig.header.logoWidth }}px;">
+                </a>
+            </nav>
         </div>
         <main class="py-4">
             {% block body %}{% endblock %}

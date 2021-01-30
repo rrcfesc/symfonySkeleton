@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\AdminUser;
+use App\Entity\Domain;
+use App\Entity\DomainInformation;
 use App\Entity\Exhibitor;
 use App\Entity\Student;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -41,6 +43,19 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $exhibitor->setRoles(['ROLE_EXHIBITOR']);
         $manager->persist($exhibitor);
 
+        $domain = new Domain();
+        $domain->setDomainName('example.com');
+        $domain->setWebsiteName('UNITEC');
+
+        $domainInformation = new DomainInformation();
+        $domainInformation->setLogo('sharedFolder/unitec.svg');
+        $domainInformation->setLogoWidth(133);
+        $domainInformation->setHeaderBackgroundColor('#2176bd');
+        $domainInformation->setHeaderTextColor('#FFF');
+        $domainInformation->addDomain($domain);
+
+        $manager->persist($domain);
+        $manager->persist($domainInformation);
         $manager->flush();
     }
 
