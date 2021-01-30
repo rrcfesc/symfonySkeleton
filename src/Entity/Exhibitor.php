@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\CustomUserInterface;
 use App\Repository\ExhibitorRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=ExhibitorRepository::class)
  */
-class Exhibitor implements UserInterface
+class Exhibitor implements UserInterface, CustomUserInterface
 {
     /**
      * @ORM\Id
@@ -105,5 +106,10 @@ class Exhibitor implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setName(string $name): CustomUserInterface
+    {
+        return $this->setUsername($name);
     }
 }

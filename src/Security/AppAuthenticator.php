@@ -73,7 +73,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         $user = $this->entityManager->getRepository(Student::class)->findOneBy(['email' => $credentials['username']]);
         if (!$user) {
             /** @var UserInterface | null $user */
-            $user = $this->entityManager->getRepository(AdminUser::class)->findOneBy(['username' => $credentials['username']]);
+            $user = $this->entityManager->getRepository(AdminUser::class)->findOneBy(['email' => $credentials['username']]);
         }
         if (!$user) {
             /** @var UserInterface | null $user */
@@ -108,8 +108,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('dashboard_index'));
     }
 
     protected function getLoginUrl()

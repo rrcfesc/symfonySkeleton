@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\CustomUserInterface;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=StudentRepository::class)
  */
-class Student implements UserInterface
+class Student implements UserInterface, CustomUserInterface
 {
     /**
      * @ORM\Id
@@ -37,6 +38,11 @@ class Student implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setName(string $email): CustomUserInterface
+    {
+        return $this->setEmail($email);
     }
 
     public function getEmail(): ?string

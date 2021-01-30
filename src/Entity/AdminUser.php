@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Interfaces\CustomUserInterface;
 use App\Repository\AdminUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=AdminUserRepository::class)
  */
-class AdminUser implements UserInterface
+class AdminUser implements UserInterface, CustomUserInterface
 {
     /**
      * @ORM\Id
@@ -110,5 +111,10 @@ class AdminUser implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setName(string $email): CustomUserInterface
+    {
+        return $this->setEmail($email);
     }
 }
