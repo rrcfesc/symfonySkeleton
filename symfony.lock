@@ -2,6 +2,12 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
+    "deployer/deployer": {
+        "version": "v6.8.0"
+    },
+    "deployer/phar-update": {
+        "version": "v2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -128,6 +134,9 @@
     },
     "php": {
         "version": "7.4"
+    },
+    "pimple/pimple": {
+        "version": "v3.3.1"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -301,6 +310,9 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.22.0"
+    },
+    "symfony/process": {
+        "version": "v5.2.2"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.5"
