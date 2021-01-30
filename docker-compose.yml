@@ -6,6 +6,10 @@ services:
       - "8015:80"
     depends_on:
       - database
+    environment:
+      APP_ENV: dev
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+      PHP_IDE_CONFIG: "serverName=Backend"
     volumes:
       - ./:/var/www/html
     container_name: virtual_meeting_web
