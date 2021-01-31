@@ -44,9 +44,25 @@ class DomainInformation
      */
     private int $logoWidth = 133;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $footerCompanyName = '';
+
+    /**
+     * @ORM\Column(type="string", length=2000)
+     */
+    private $footerAddress = '';
+
+    /**
+     * @ORM\OneToMany(targetEntity=DomainPage::class, mappedBy="domainInformation")
+     */
+    private $domainPages;
+
     public function __construct()
     {
         $this->domains = new ArrayCollection();
+        $this->domainPages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -128,6 +144,60 @@ class DomainInformation
     public function setLogoWidth(string $logoWidth): self
     {
         $this->logoWidth = $logoWidth;
+
+        return $this;
+    }
+
+    public function getFooterCompanyName(): ?string
+    {
+        return $this->footerCompanyName;
+    }
+
+    public function setFooterCompanyName(string $footerCompanyName): self
+    {
+        $this->footerCompanyName = $footerCompanyName;
+
+        return $this;
+    }
+
+    public function getFooterAddress(): ?string
+    {
+        return $this->footerAddress;
+    }
+
+    public function setFooterAddress(string $footerAddress): self
+    {
+        $this->footerAddress = $footerAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DomainPage[]
+     */
+    public function getDomainPages(): Collection
+    {
+        return $this->domainPages;
+    }
+
+    public function addDomainPage(DomainPage $domainPage): self
+    {
+        if (!$this->domainPages->contains($domainPage)) {
+            $this->domainPages[] = $domainPage;
+            $domainPage->setDomainInformation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDomainPage(DomainPage $domainPage): self
+    {
+        if ($this->domainPages->removeElement($domainPage)) {
+            // set the owning side to null (unless already changed)
+            if ($domainPage->getDomainInformation() === $this) {
+                $domainPage->setDomainInformation(null);
+            }
+        }
 
         return $this;
     }

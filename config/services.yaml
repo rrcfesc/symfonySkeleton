@@ -18,7 +18,11 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
+            - '../src/DTO/'
             - '../src/Entity/'
+            - '../src/Filter/'
+            - '../src/Interfaces/'
+            - '../src/InterfacesFilter/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
@@ -33,6 +37,21 @@ services:
     Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
         arguments:
             - '%env(DATABASE_URL)%'
+    App\Filter\DeletedAtConfigurator:
+        class: App\Filter\DeletedAtConfigurator
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@annotation_reader'
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest
+            -
+                name: kernel.event_listener
+                event: console.command
+                method: onKernelRequest
+
     App\Core\DomainConfigurator:
         class: App\Core\DomainConfigurator
         arguments:

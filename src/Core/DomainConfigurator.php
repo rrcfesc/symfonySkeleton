@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\DTO\FooterInformation;
 use App\DTO\HeaderInformation;
 use App\Entity\Domain;
 use App\Entity\DomainInformation;
@@ -15,7 +16,9 @@ final class DomainConfigurator
 
     private HeaderInformation $header;
 
-    public function __construct(DomainRepository  $domainRepository, string $domain)
+    private FooterInformation $footer;
+
+    public function __construct(DomainRepository $domainRepository, string $domain)
     {
         $this->domain = $domain;
         $this->domainRepository = $domainRepository;
@@ -25,9 +28,11 @@ final class DomainConfigurator
         if (null === $domainClass) {
             throw new \Exception('Domain not found');
         }
+
         if (null === $domainClass->getDomainInformation()) {
             throw new \Exception('DomainInformation not found');
         }
+
         $domainInformation = $domainClass->getDomainInformation();
 
         $this->header = new HeaderInformation(
@@ -37,10 +42,20 @@ final class DomainConfigurator
             $domainInformation->getHeaderBackgroundColor(),
             $domainInformation->getHeaderTextColor()
         );
+
+        $this->footer = new FooterInformation(
+            $domainInformation->getFooterCompanyName(),
+            $domainInformation->getFooterAddress()
+        );
     }
 
     public function getHeader(): HeaderInformation
     {
         return $this->header;
+    }
+
+    public function getFooter(): FooterInformation
+    {
+        return $this->footer;
     }
 }
